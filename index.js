@@ -3,6 +3,7 @@ const { Client, Collection, Events, GatewayIntentBits } = require("discord.js");
 const { token } = require("./config.json");
 const fs = require("node:fs");
 const path = require("node:path");
+const db = require("./data/db");
 
 // Create a new client instance
 const client = new Client({ intents: [GatewayIntentBits.Guilds] });
@@ -46,18 +47,10 @@ for (const file of eventFiles) {
   }
 }
 
-const createClient = require("redis").createClient;
 (async () => {
-  const redis = await createClient({
-    url: "redis://:password@localhost:6379",
-  })
-    .on("error", (err) => console.log("Redis Client Error", err))
-    .connect();
-
-  await redis.set("hello", "world");
-  const value = await redis.get("hello");
-  console.log("test", value);
+  // Open a connection to the Redis database
+  await db.openConnection();
 
   // Log in to Discord with your client's token
-  client.login(token);
+  await client.login(token);
 })();
