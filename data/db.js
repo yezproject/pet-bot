@@ -1,15 +1,15 @@
-const createClient = require("redis").createClient;
+const createClient = require('redis').createClient;
 
 module.exports = {
   client: null,
 
   openConnection: async function () {
     const redis = await createClient({
-      url: "redis://:password@localhost:6379",
+      url: 'redis://:password@localhost:6379',
     })
-      .on("error", (err) => console.log("Redis Client Error", err))
+      .on('error', (err) => console.log('Redis Client Error', err))
       .connect();
-    console.log("Connected to Redis!");
+    console.log('Connected to Redis!');
     this.client = redis;
   },
 
@@ -20,4 +20,8 @@ module.exports = {
   get: async function (key) {
     return await this.client.get(key);
   },
+
+  existed: async function (key) {
+    return await this.client.existed(key);
+  }
 };
