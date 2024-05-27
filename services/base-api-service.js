@@ -5,7 +5,7 @@ const ACCEPTED_RESPONSE_STATUS = [409, 400];
 
 const HTTP = () => {
   const instance = axios.create({
-    baseURL: 'localhost:8080',
+    baseURL: 'http://localhost:8080',
     withCredentials: true,
   });
 

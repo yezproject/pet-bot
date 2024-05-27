@@ -1,5 +1,6 @@
-const {SlashCommandBuilder} = require('@discordjs/builders');
+const { SlashCommandBuilder } = require('@discordjs/builders');
 const tokenDb = require('../../data/tokenDb');
+const transactionService = require('../../services/transaction-service');
 
 module.exports = {
   data: new SlashCommandBuilder()
@@ -20,23 +21,23 @@ module.exports = {
 
   async execute(interaction) {
     const number = interaction.options.getNumber('number');
-    const description = interaction.options.getString('description').trim();
+    const name = interaction.options.getString('description').trim();
     const token = await tokenDb.get(interaction.user.id);
     const req = {
-      token,
       amount: number,
-      description,
-      createTime: Date.now(),
+      name,
+      transactionDate: Date.now(),
     };
-    console.log('request is: ', req);
-    await interaction.reply({
+    transactionService.add(req, token)
+    interaction.reply({
       content: `
-        Your request:
+        Add transaction success:
         '''
         ${JSON.stringify(req)}
         '''
         `,
       ephemeral: true,
     });
+
   },
 };

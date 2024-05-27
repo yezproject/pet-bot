@@ -13,6 +13,10 @@ module.exports = {
     this.client = redis;
   },
 
+  ping: async function () {
+    return await this.client.ping();
+  },
+
   set: async function (key, value) {
     return await this.client.set(key, value);
   },

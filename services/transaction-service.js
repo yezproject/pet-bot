@@ -1,13 +1,15 @@
 const HTTP = require('./base-api-service');
 
-module.exports = {
-  add: (transaction, token) => {
-    return HTTP.post('/transactions', transaction, config(token));
-  },
-
-  config: token => ({
+function config(token) {
+  return {
     headers: {
       Authorization: `Bearer ${token}`,
     },
-  })
+  }
+}
+
+module.exports = {
+  add: async (transaction, token) =>  {
+    return HTTP.post('/api/transactions', transaction, config(token));
+  },
 }

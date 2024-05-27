@@ -1,4 +1,4 @@
-const {SlashCommandBuilder} = require('discord.js');
+const { SlashCommandBuilder } = require('discord.js');
 const tokenDb = require('../../data/tokenDb');
 
 module.exports = {

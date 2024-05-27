@@ -1,13 +1,22 @@
 // Require the necessary discord.js classes
-const { Client, Collection, Events, GatewayIntentBits } = require('discord.js');
+const { Client, Collection, GatewayIntentBits, Partials } = require('discord.js');
 const { token } = require('./config.json');
 const fs = require('node:fs');
 const path = require('node:path');
 const db = require('./data/db');
-const { set } = require('./data/db');
 
 // Create a new client instance
-const client = new Client({ intents: [GatewayIntentBits.Guilds] });
+const client = new Client({
+  intents: [
+    GatewayIntentBits.DirectMessages,
+    GatewayIntentBits.DirectMessagePolls,
+    GatewayIntentBits.MessageContent,
+  ],
+  partials: [
+    Partials.Channel,
+    Partials.Message,
+  ]
+});
 
 client.commands = new Collection();
 
@@ -51,7 +60,8 @@ for (const file of eventFiles) {
 (async () => {
   // Open a connection to the Redis database
   await db.openConnection();
-  await db.set('ping', 'pong');
+  const pong = await db.ping();
+  console.log(pong)
   // Log in to Discord with your client's token
   await client.login(token);
 })();
