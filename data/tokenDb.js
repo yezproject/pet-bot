@@ -1,5 +1,5 @@
-const db = require('./db');
-const prefix = 'token:duid:'
+const db = require("./db");
+const prefix = "token:duid:"
 module.exports = {
   set: async function (userId, token) {
     return await db.set(prefix + userId, token);

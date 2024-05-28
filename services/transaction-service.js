@@ -1,4 +1,4 @@
-const HTTP = require('./base-api-service');
+const HTTP = require("./base-api-service");
 
 function config(token) {
   return {
@@ -10,6 +10,6 @@ function config(token) {
 
 module.exports = {
   add: async (transaction, token) =>  {
-    return HTTP.post('/api/transactions', transaction, config(token));
+    return HTTP.post("/api/transactions", transaction, config(token));
   },
 }

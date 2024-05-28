@@ -1,15 +1,15 @@
-const { SlashCommandBuilder } = require('discord.js');
-const tokenDb = require('../../data/tokenDb');
+const { SlashCommandBuilder } = require("discord.js");
+const tokenDb = require("../../data/tokenDb");
 
 module.exports = {
   data: new SlashCommandBuilder()
-    .setName('token')
-    .setDescription('Add your personal PET\'s token')
+    .setName("token")
+    .setDescription("Add your personal PET's token")
     .addStringOption((option) =>
-      option.setName('token').setDescription('Your token').setRequired(true),
+      option.setName("token").setDescription("Your token").setRequired(true),
     ),
   async execute(interaction) {
-    const token = normalizeToken(interaction.options.getString('token'));
+    const token = normalizeToken(interaction.options.getString("token"));
     const userId = interaction.user.id;
     tokenDb.set(userId, token);
     await interaction.reply({
@@ -20,5 +20,5 @@ module.exports = {
 };
 
 function normalizeToken(token) {
-  return token.replace(/ /g, '');
+  return token.replace(/ /g, "");
 }

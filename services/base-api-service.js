@@ -1,23 +1,23 @@
-const axios = require('axios');
-const jsesc = require('jsesc');
+const axios = require("axios");
+const jsesc = require("jsesc");
 
 const ACCEPTED_RESPONSE_STATUS = [409, 400];
 
 const HTTP = () => {
   const instance = axios.create({
-    baseURL: 'http://localhost:8080',
+    baseURL: "http://localhost:8080",
     withCredentials: true,
   });
 
   instance.interceptors.response.use(
     (response) => {
-      if (response.headers.getContentType === 'application/json') {
+      if (response.headers.getContentType === "application/json") {
         response.data = JSON.parse(jsesc(response.data, {json: true}));
       }
       return response;
     },
     (error) => {
-      console.log('error', error);
+      console.log("error", error);
       if (error?.response?.status === 401) {
         // handle 401 error
       }
