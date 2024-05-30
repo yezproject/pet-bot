@@ -3,7 +3,7 @@ const { Client, Collection, GatewayIntentBits, Partials } = require("discord.js"
 const { token } = require("./config.json");
 const fs = require("node:fs");
 const path = require("node:path");
-const db = require("./data/db");
+const db = require("./repository/base-repository");
 
 // Create a new client instance
 const client = new Client({

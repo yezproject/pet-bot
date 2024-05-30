@@ -27,5 +27,5 @@ module.exports = {
 
   existed: async function (key) {
     return await this.client.existed(key);
-  }
+  },
 };
