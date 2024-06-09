@@ -1,6 +1,6 @@
 const { SlashCommandBuilder } = require("@discordjs/builders");
-const tokenDb = require("../../repository/token-repository");
-const transactionService = require("../../service/transaction-service");
+const tokenDb = require("../../../redis/token-repository");
+const transactionService = require("../../../service/transaction-service");
 
 module.exports = {
   data: new SlashCommandBuilder().setName("latest").setDescription("Get latest transaction"),

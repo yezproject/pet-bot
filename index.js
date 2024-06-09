@@ -3,7 +3,7 @@ const { Client, Collection, GatewayIntentBits, Partials } = require("discord.js"
 const { token } = require("./config.json");
 const fs = require("node:fs");
 const path = require("node:path");
-const db = require("./repository/base-repository");
+const redis = require("./redis/redis-repository");
 
 // Create a new client instance
 const client = new Client({
@@ -13,7 +13,7 @@ const client = new Client({
 
 client.commands = new Collection();
 
-const foldersPath = path.join(__dirname, "commands");
+const foldersPath = path.join(__dirname, "discord/commands");
 const commandFolders = fs.readdirSync(foldersPath);
 
 for (const folder of commandFolders) {
@@ -31,7 +31,7 @@ for (const folder of commandFolders) {
   }
 }
 
-const eventsPath = path.join(__dirname, "events");
+const eventsPath = path.join(__dirname, "discord/events");
 const eventFiles = fs.readdirSync(eventsPath).filter((file) => file.endsWith(".js"));
 
 for (const file of eventFiles) {
@@ -46,8 +46,8 @@ for (const file of eventFiles) {
 
 (async () => {
   // Open a connection to the Redis database
-  await db.openConnection();
-  const pong = await db.ping();
+  await redis.openConnection();
+  const pong = await redis.ping();
   console.log(pong);
   // Log in to Discord with your client's token
   await client.login(token);

@@ -1,5 +1,5 @@
 const { SlashCommandBuilder } = require("discord.js");
-const tokenDb = require("../../repository/token-repository");
+const tokenDb = require("../../../redis/token-repository.js");
 
 module.exports = {
   data: new SlashCommandBuilder()
